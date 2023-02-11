@@ -1,0 +1,28 @@
+# Gradle
+.gradle/
+
+# Intellij
+**/*.idea/
+
+# Build
+build/
+out/
+
+# Logging
+logs/
+*.log
+
+# MAC specific
+hs_err_**
+*.DS_Store
+*.hprof
+
+# Extensions
+*.zip
+*.exe
+
+# Run parameters
+**/*gradle.properties
+
+# Python
+**/*__pycache__
