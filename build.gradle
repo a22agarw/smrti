@@ -1,0 +1,87 @@
+import groovy.json.JsonSlurper
+
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '2.7.9'
+	id 'io.spring.dependency-management' version '1.1.4'
+	id 'com.bmuschko.docker-spring-boot-application' version '9.3.0'
+	id 'com.bmuschko.docker-remote-api' version '9.3.0'
+}
+
+group = 'com.ronyn.enterprise.service.log'
+version = 'v2024.03.01'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+	mavenLocal()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springdoc:springdoc-openapi-ui:1.6.15'
+	implementation 'org.liquibase:liquibase-core'
+	implementation 'com.google.code.gson:gson:2.10.1'
+	implementation 'org.apache.httpcomponents:httpclient:4.5.14'
+	implementation 'org.apache.httpcomponents:httpcore:4.4.15'
+	implementation 'net.javacrumbs.shedlock:shedlock-spring:5.2.0'
+	implementation 'net.javacrumbs.shedlock:shedlock-provider-jdbc-template:5.2.0'
+	implementation 'com.github.blagerweij:liquibase-sessionlock:1.6.2'
+	implementation 'com.h2database:h2:2.1.214'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+docker {
+
+	String osName = System.getProperty("os.name").toLowerCase()
+
+	if (osName.contains("nux") && !project.hasProperty('local_build')) {
+
+		def jsonSlurper = new JsonSlurper()
+		def envJson = jsonSlurper.parse(new File('/home/sentinel/.env'))
+		def dockerUser = envJson["docker-user"];
+		def dockerPwd = envJson["docker-pwd"];
+		def dockerEmail = envJson["docker-email"];
+
+		def branch = "local"
+		if (project.hasProperty('branch')) {
+			branch = project.findProperty('branch')
+		}
+
+		def commit = "local"
+		if (project.hasProperty('commit')) {
+			commit = project.findProperty('commit')
+		}
+
+		registryCredentials {
+			url = "https://index.docker.io/v1/"
+			username = dockerUser
+			password = dockerPwd
+			email = dockerEmail
+		}
+
+		springBootApplication {
+			baseImage = 'openjdk:11'
+			ports = [8080, 8080]
+			images = ['ronynwallets/ronyn-enterprise_service-log:' + version + '-' + branch + '-' + commit]
+			jvmArgs = ['-Dspring.profiles.active=production', '-Xmx2048m']
+		}
+	}
+}

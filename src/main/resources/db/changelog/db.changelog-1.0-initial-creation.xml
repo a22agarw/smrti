@@ -1,0 +1,49 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+						http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd
+						http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+	<changeSet author="Smrti" id="Initial Table Creation" runOnChange="true">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="shedlock"/>
+			</not>
+		</preConditions>
+		<createTable tableName="db_tags">
+			<column name="id" type="bigint">
+				<constraints nullable="false" primaryKey="true" unique="true"/>
+			</column>
+			<column name="log_id" type="varchar(100)">
+				<constraints nullable="false" />
+			</column>
+			<column name="tag_key" type="varchar(100)">
+				<constraints nullable="false" />
+			</column>
+			<column name="tag_value" type="varchar(100)">
+				<constraints nullable="false" />
+			</column>
+			<column name="timestamp" type="varchar(100)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<addAutoIncrement tableName="db_tags" columnName="id" columnDataType="bigint" />
+		<createTable tableName="shedlock">
+			<column name="name" type="VARCHAR(64)">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="locked_at" type="TIMESTAMP">
+				<constraints nullable="false" />
+			</column>
+			<column name="lock_until" type="TIMESTAMP">
+				<constraints nullable="false" />
+			</column>
+			<column name="locked_by" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+</databaseChangeLog>

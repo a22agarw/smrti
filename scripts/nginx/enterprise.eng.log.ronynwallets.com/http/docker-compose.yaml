@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+
+  auto-ssl:
+    image: ronynwallets/auto-proxy:http.enterprise.eng.log.ronynwallets.com-main-latest
+    container_name: auto-ssl
+    pull_policy: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /home/ubuntu/letsencrypt:/letsencrypt
+      - /home/ubuntu/letsencrypt/certs:/etc/letsencrypt
+    depends_on:
+      - re-service-log
+    links:
+      - re-service-log
+
+  re-service-log:
+    image: ronynwallets/ronyn-enterprise_service-log:v2024.03.01-main-latest
+    container_name: re-service-log
+    pull_policy: always
+    ports:
+      - 8080:8080
+    environment:
+      - DATABASE_HOST=3.132.127.91
+      - DATABASE_PORT=3306
+      - DATABASE_NAME=db_eng_1
+      - DATABASE_USER=sentinel
+      - DATABASE_PASSWORD=
+      - SERVER_PORT=8080
+
