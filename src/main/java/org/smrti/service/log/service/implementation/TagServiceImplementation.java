@@ -58,6 +58,11 @@ public class TagServiceImplementation implements TagService {
     public ResponseEntity<Object> getByContextId(String contextId) {
         List<String> logIds = tagRepository.findLogIdByTagKey(Constants.contextTagKey, contextId);
 
+        if (logIds.isEmpty()) {
+            return new ResponseEntity<>(new Gson().fromJson(ResponseUtils.error("Context id does not exist."), Object.class),
+                    HttpStatus.NOT_FOUND);
+        }
+
         JsonArray result = new JsonArray();
 
         // Convert arraylist to set to remove any duplicate log ID
