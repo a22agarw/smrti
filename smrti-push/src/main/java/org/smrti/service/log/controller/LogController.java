@@ -1,7 +1,6 @@
 package org.smrti.service.log.controller;
 
 import org.smrti.service.log.dto.LogSubmitRequestDto;
-import org.smrti.service.log.service.LogService;
 import org.smrti.service.log.service.TagService;
 import org.smrti.service.log.utils.ValidationUtils;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,9 +14,6 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping(path = "/log")
 public class LogController {
-
-    @Autowired
-    LogService logService;
 
     @Autowired
     TagService tagService;

@@ -230,18 +230,22 @@ pipeline {
                         if (osType == "win") {
 
                             bat """
+                                cd smrti-push
                                 gradle dockerBuildImage -Pbranch=${env.BRANCH_NAME} -Pcommit=${env.GIT_COMMIT} ${javaHome}
                             """
                             bat """
+                                cd smrti-push
                                 gradle dockerPushImage -Pbranch=${env.BRANCH_NAME} -Pcommit=${env.GIT_COMMIT} ${javaHome}
                             """
 
                         } else if (osType == "mac" || osType == "nux") {
 
                             sh """
+                                cd smrti-push
                                 gradle dockerBuildImage -Pbranch=${env.BRANCH_NAME} -Pcommit=${env.GIT_COMMIT} ${javaHome}
                             """
                             sh """
+                                cd smrti-push
                                 gradle dockerPushImage -Pbranch=${env.BRANCH_NAME} -Pcommit=${env.GIT_COMMIT} ${javaHome}
                             """
 
@@ -263,6 +267,7 @@ pipeline {
                         if (osType == "nux") {
 
                             sh """
+                                cd smrti-push
                                 cd scripts
                                 cd nginx
                                 cd enterprise.eng.log.ronynwallets.com
@@ -272,6 +277,7 @@ pipeline {
                             """
 
                             sh """
+                                cd smrti-push
                                 cd scripts
                                 cd nginx
                                 cd enterprise.eng.log.ronynwallets.com
@@ -281,6 +287,7 @@ pipeline {
                             """
 
                             sh """
+                                cd smrti-push
                                 cd scripts
                                 cd nginx
                                 cd enterprise.eng.log.ronynwallets.com
@@ -290,6 +297,7 @@ pipeline {
                             """
 
                             sh """
+                                cd smrti-push
                                 cd scripts
                                 cd nginx
                                 cd enterprise.eng.log.ronynwallets.com

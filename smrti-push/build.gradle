@@ -80,7 +80,7 @@ docker {
 		springBootApplication {
 			baseImage = 'openjdk:11'
 			ports = [8080, 8080]
-			images = ['ronynwallets/ronyn-enterprise_service-log:' + version + '-' + branch + '-' + commit]
+			images = ['vs4dhak/smrti_service-push:' + version, 'vs4dhak/smrti_service-push:' + version + '-' + branch + '-' + commit]
 			jvmArgs = ['-Dspring.profiles.active=production', '-Xmx2048m']
 		}
 	}
