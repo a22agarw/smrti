@@ -238,7 +238,7 @@ pipeline {
                                 cd smrti-push
                                 cd scripts
                                 cd nginx
-                                cd enterprise.eng.log.ronynwallets.com
+                                cd enterprise.eng.log.push.ronynwallets.com
                                 cd http
                                 docker build --platform linux/amd64 -t ronynwallets/auto-proxy:http.enterprise.eng.log.push.ronynwallets.com-${env.BRANCH_NAME}-${env.GIT_COMMIT} .
                                 docker push ronynwallets/auto-proxy:http.enterprise.eng.log.push.ronynwallets.com-${env.BRANCH_NAME}-${env.GIT_COMMIT}
@@ -248,7 +248,7 @@ pipeline {
                                 cd smrti-push
                                 cd scripts
                                 cd nginx
-                                cd enterprise.eng.log.ronynwallets.com
+                                cd enterprise.eng.log.push.ronynwallets.com
                                 cd http
                                 docker build --platform linux/amd64 -t ronynwallets/auto-proxy:http.enterprise.eng.log.push.ronynwallets.com-${env.BRANCH_NAME}-latest .
                                 docker push ronynwallets/auto-proxy:http.enterprise.eng.log.push.ronynwallets.com-${env.BRANCH_NAME}-latest
@@ -258,7 +258,7 @@ pipeline {
                                 cd smrti-push
                                 cd scripts
                                 cd nginx
-                                cd enterprise.eng.log.ronynwallets.com
+                                cd enterprise.eng.log.push.ronynwallets.com
                                 cd https
                                 docker build --platform linux/amd64 -t ronynwallets/auto-proxy:https.enterprise.eng.log.push.ronynwallets.com-${env.BRANCH_NAME}-${env.GIT_COMMIT} .
                                 docker push ronynwallets/auto-proxy:https.enterprise.eng.log.push.ronynwallets.com-${env.BRANCH_NAME}-${env.GIT_COMMIT}
@@ -268,7 +268,7 @@ pipeline {
                                 cd smrti-push
                                 cd scripts
                                 cd nginx
-                                cd enterprise.eng.log.ronynwallets.com
+                                cd enterprise.eng.log.push.ronynwallets.com
                                 cd https
                                 docker build --platform linux/amd64 -t ronynwallets/auto-proxy:https.enterprise.eng.log.push.ronynwallets.com-${env.BRANCH_NAME}-latest .
                                 docker push ronynwallets/auto-proxy:https.enterprise.eng.log.push.ronynwallets.com-${env.BRANCH_NAME}-latest
