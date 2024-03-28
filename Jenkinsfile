@@ -163,6 +163,7 @@ pipeline {
                 script {
                     String javaHome = detectJavaHome(11);
                     sh """
+                        cd smrti-push
                         gradle clean jar ${javaHome}
                     """
                 }
@@ -197,18 +198,22 @@ pipeline {
                         if (osType == "win") {
 
                             bat """
+                                cd smrti-push
                                 gradle dockerBuildImage -Pbranch=${env.BRANCH_NAME} -Pcommit=latest ${javaHome}
                             """
                             bat """
+                                cd smrti-push
                                 gradle dockerPushImage -Pbranch=${env.BRANCH_NAME} -Pcommit=latest ${javaHome}
                             """
 
                         } else if (osType == "mac" || osType == "nux") {
 
                             sh """
+                                cd smrti-push
                                 gradle dockerBuildImage -Pbranch=${env.BRANCH_NAME} -Pcommit=latest ${javaHome}
                             """
                             sh """
+                                cd smrti-push
                                 gradle dockerPushImage -Pbranch=${env.BRANCH_NAME} -Pcommit=latest ${javaHome}
                             """
 
