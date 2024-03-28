@@ -27,7 +27,7 @@ void setBuildStatus(String message, String state) {
 		$class: "GitHubCommitStatusSetter",
 		commitShaSource: [$class: "BuildDataRevisionShaSource"],
 		reposSource: [$class: "AnyDefinedRepositorySource"],
-		reposSource: [$class: "ManuallyEnteredRepositorySource", url: "git@github.com:ronyn-wallets/ronyn-enterprise_service-resources.git"],
+		reposSource: [$class: "ManuallyEnteredRepositorySource", url: "git@github.com:a22agarw/smrti.git"],
 		contextSource: [$class: "DefaultCommitContextSource"],
 		errorHandlers: [[$class: "ShallowAnyErrorHandler"]],
 		statusResultSource: [$class: "DefaultStatusResultSource"],
@@ -59,7 +59,7 @@ void pullRepository(String branch) {
 			userRemoteConfigs: [
                 [
                     credentialsId: 'ssh',
-                    url: 'git@github.com:ronyn-wallets/ronyn-enterprise_service-log.git',
+                    url: 'git@github.com:a22agarw/smrti.git',
                     name: '',
                     refspec: ''
                 ],
