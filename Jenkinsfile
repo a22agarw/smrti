@@ -186,44 +186,7 @@ pipeline {
             }
         }
 
-		stage ('docker-build-latest') {
-            steps {
-                script {
-
-                    lock('docker') {
-
-                        String osType = detectOperatingSystemType();
-                        String javaHome = detectJavaHome(11);
-
-                        if (osType == "win") {
-
-                            bat """
-                                cd smrti-push
-                                gradle dockerBuildImage -Pbranch=${env.BRANCH_NAME} -Pcommit=latest ${javaHome}
-                            """
-                            bat """
-                                cd smrti-push
-                                gradle dockerPushImage -Pbranch=${env.BRANCH_NAME} -Pcommit=latest ${javaHome}
-                            """
-
-                        } else if (osType == "mac" || osType == "nux") {
-
-                            sh """
-                                cd smrti-push
-                                gradle dockerBuildImage -Pbranch=${env.BRANCH_NAME} -Pcommit=latest ${javaHome}
-                            """
-                            sh """
-                                cd smrti-push
-                                gradle dockerPushImage -Pbranch=${env.BRANCH_NAME} -Pcommit=latest ${javaHome}
-                            """
-
-                        }
-                    }
-                }
-            }
-        }
-
-        stage ('docker-build-commit') {
+        stage ('docker-build') {
             steps {
                 script {
 
@@ -277,8 +240,8 @@ pipeline {
                                 cd nginx
                                 cd enterprise.eng.log.ronynwallets.com
                                 cd http
-                                docker build --platform linux/amd64 -t ronynwallets/auto-proxy:http.enterprise.eng.log.ronynwallets.com-${env.BRANCH_NAME}-${env.GIT_COMMIT} .
-                                docker push ronynwallets/auto-proxy:http.enterprise.eng.log.ronynwallets.com-${env.BRANCH_NAME}-${env.GIT_COMMIT}
+                                docker build --platform linux/amd64 -t ronynwallets/auto-proxy:http.enterprise.eng.log.push.ronynwallets.com-${env.BRANCH_NAME}-${env.GIT_COMMIT} .
+                                docker push ronynwallets/auto-proxy:http.enterprise.eng.log.push.ronynwallets.com-${env.BRANCH_NAME}-${env.GIT_COMMIT}
                             """
 
                             sh """
@@ -287,8 +250,8 @@ pipeline {
                                 cd nginx
                                 cd enterprise.eng.log.ronynwallets.com
                                 cd http
-                                docker build --platform linux/amd64 -t ronynwallets/auto-proxy:http.enterprise.eng.log.ronynwallets.com-${env.BRANCH_NAME}-latest .
-                                docker push ronynwallets/auto-proxy:http.enterprise.eng.log.ronynwallets.com-${env.BRANCH_NAME}-latest
+                                docker build --platform linux/amd64 -t ronynwallets/auto-proxy:http.enterprise.eng.log.push.ronynwallets.com-${env.BRANCH_NAME}-latest .
+                                docker push ronynwallets/auto-proxy:http.enterprise.eng.log.push.ronynwallets.com-${env.BRANCH_NAME}-latest
                             """
 
                             sh """
@@ -297,8 +260,8 @@ pipeline {
                                 cd nginx
                                 cd enterprise.eng.log.ronynwallets.com
                                 cd https
-                                docker build --platform linux/amd64 -t ronynwallets/auto-proxy:https.enterprise.eng.log.ronynwallets.com-${env.BRANCH_NAME}-${env.GIT_COMMIT} .
-                                docker push ronynwallets/auto-proxy:https.enterprise.eng.log.ronynwallets.com-${env.BRANCH_NAME}-${env.GIT_COMMIT}
+                                docker build --platform linux/amd64 -t ronynwallets/auto-proxy:https.enterprise.eng.log.push.ronynwallets.com-${env.BRANCH_NAME}-${env.GIT_COMMIT} .
+                                docker push ronynwallets/auto-proxy:https.enterprise.eng.log.push.ronynwallets.com-${env.BRANCH_NAME}-${env.GIT_COMMIT}
                             """
 
                             sh """
@@ -307,8 +270,8 @@ pipeline {
                                 cd nginx
                                 cd enterprise.eng.log.ronynwallets.com
                                 cd https
-                                docker build --platform linux/amd64 -t ronynwallets/auto-proxy:https.enterprise.eng.log.ronynwallets.com-${env.BRANCH_NAME}-latest .
-                                docker push ronynwallets/auto-proxy:https.enterprise.eng.log.ronynwallets.com-${env.BRANCH_NAME}-latest
+                                docker build --platform linux/amd64 -t ronynwallets/auto-proxy:https.enterprise.eng.log.push.ronynwallets.com-${env.BRANCH_NAME}-latest .
+                                docker push ronynwallets/auto-proxy:https.enterprise.eng.log.push.ronynwallets.com-${env.BRANCH_NAME}-latest
                             """
                         }
                     }
