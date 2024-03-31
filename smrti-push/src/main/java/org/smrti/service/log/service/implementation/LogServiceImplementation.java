@@ -10,8 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @Slf4j
 public class LogServiceImplementation implements LogService {
@@ -26,7 +24,7 @@ public class LogServiceImplementation implements LogService {
         JsonObject log = new JsonObject();
         String tagsJsonString = new Gson().toJson(logSubmitRequestDto.getTags());
         log.add("tags", new Gson().fromJson(tagsJsonString, JsonObject.class));
-        log.addProperty("log", logSubmitRequestDto.getLog());
+        log.addProperty("value", logSubmitRequestDto.getLog());
 
         // Save the new appended log
         Log newLog = new Log(log);
