@@ -92,7 +92,7 @@ public class TagServiceImplementation implements TagService {
         Set<String> setLogIds = new LinkedHashSet<>(finalLogIds);
         for (String logId: setLogIds) {
             JsonObject log = logService.getLogById(logId);
-            result.add(log);
+            result.add(log.get("value").getAsJsonObject());
         }
 
         return new ResponseEntity<>(new Gson().fromJson(ResponseUtils.success(result), Object.class),

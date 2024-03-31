@@ -1,7 +1,5 @@
 package org.smrti.service.log.model;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,8 +19,4 @@ public class Log {
 
     @Field(value = "log")
     Object log;
-
-    public Log (JsonObject log) {
-        this.log = new Gson().fromJson(log, Object.class);
-    }
 }
